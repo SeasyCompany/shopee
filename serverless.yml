@@ -1,0 +1,56 @@
+service: shopee
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: '20201221'
+  memorySize: 256
+  region: us-east-1
+  apiGateway:
+    shouldStartNameWithService: true
+  stage: local
+  environment:
+    COGNITO_AUTHORIZATION: ${self:custom.Cognito.authorization}
+    COGNITO_URL: ${self:custom.Cognito.url}
+    SHOPEE_URL: ${self:custom.Shopee.url}
+  
+functions:
+  hello:
+    handler: dist/src/handlers/index.hello
+    events:
+      - http:
+          method: GET
+          path: /hello
+          authorizer:
+            arn: ${self:custom.Cognito.arn}
+            scopes:
+              - ${self:custom.Cognito.scopes}
+
+  searchproducts:
+    handler: dist/src/handlers/index.searchproducts
+    events:
+      - http:
+          method: GET
+          path: /products
+          request:
+            parameters:
+              querystrings:
+                product: true
+          authorizer:
+            arn: ${self:custom.Cognito.arn}
+            scopes:
+              - ${self:custom.Cognito.scopes}
+
+custom:
+  bundle:
+    linting: false
+  Cognito:
+    arn: ${file(env.${self:provider.stage}.yml):Cognito.arn}
+    scopes: ${file(env.${self:provider.stage}.yml):Cognito.scopes}
+    url: ${file(env.${self:provider.stage}.yml):Cognito.url}
+    authorization: ${file(env.${self:provider.stage}.yml):Cognito.authorization}
+  Shopee:
+    url: ${file(env.${self:provider.stage}.yml):Shopee.url}
+
+plugins:
+  - serverless-offline
