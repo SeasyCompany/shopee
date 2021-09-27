@@ -1460,10 +1460,10 @@
     "@typescript-eslint/types" "4.29.2"
     eslint-visitor-keys "^2.0.0"
 
-"@vmotta8/price-comparison@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@vmotta8/price-comparison/-/price-comparison-1.0.6.tgz#a456f5a7b7e0701eb6deafe5c960c095b7f8ec00"
-  integrity sha512-xhcjkGFyRrZwQNfvzsb1FkwIM///IwKAFtPqLig4V6NXQ0Zy9o95O9Reg3GixMwwcdDGUldk4nFOZwDUT5X17w==
+"@vmotta8/price-comparison@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@vmotta8/price-comparison/-/price-comparison-1.1.4.tgz#cdd0cbd419f8f945388422378694e7275e325869"
+  integrity sha512-XF5+8PeRfZfm7Didu1u4UOOR3Pz0UiT227p9gCvR+dd1C6Rmxjpt7Wzq3AiD7IAerh8VhmVolFrkd1zNEvjSdA==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"

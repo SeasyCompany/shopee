@@ -1,7 +1,7 @@
 import { IProduct } from '../../dtos'
 import { ShopeeService } from '../../services'
 import { filterProductsByPrice, formatSearchProducts } from '../../helpers'
-import { sortProductsByPrice } from '@vmotta8/price-comparison'
+import { sortProductsByPrice, filterProductsByDetails } from '@vmotta8/price-comparison'
 
 interface Payload {
   product: string;
@@ -12,8 +12,9 @@ export class SearchUsecase {
 
     const response = await ShopeeService.searchProducts(product)
     const formattedProducts = formatSearchProducts(response.items)
-    const filteredProducts = filterProductsByPrice(formattedProducts)
-    const sortedProducts = sortProductsByPrice(filteredProducts)
+    const filteredProductsByDetails = filterProductsByDetails(formattedProducts, product)
+    const filteredProductsByPrice = filterProductsByPrice(filteredProductsByDetails)
+    const sortedProducts = sortProductsByPrice(filteredProductsByPrice)
     return sortedProducts
   }
 }

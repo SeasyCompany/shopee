@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'querystring'
 import { errorHandler } from '@vmotta8/price-comparison'
 import { ISearchProducts } from '../dtos'
 
@@ -8,7 +9,7 @@ export const ShopeeService = {
 
     try {
       const response = await axios.get<ISearchProducts>(
-        `${shopeeUrl}/search/search_items?by=relevancy&keyword=${product}&limit=15&locations=-1&newest=0&order=desc&page_type=search&scenario=PAGE_GLOBAL_SEARCH&version=2`
+        `${shopeeUrl}/search/search_items?by=relevancy&${qs.stringify({ keyword: product })}&limit=15&locations=-1&newest=0&order=desc&page_type=search&scenario=PAGE_GLOBAL_SEARCH&version=2`
       )
 
       return response.data
