@@ -13,8 +13,8 @@ export const ShopeeService = {
       )
 
       return response.data
-    } catch (error) {
-      throw errorHandler.format(error)
+    } catch (e) {
+      throw errorHandler.generate(3002, e)
     }
   }
 }
