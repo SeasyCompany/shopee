@@ -1,7 +1,7 @@
 import { IProduct } from '../../dtos'
 import { ShopeeService } from '../../services'
 import { filterProductsByPrice, formatSearchProducts } from '../../helpers'
-import { sortProductsByPrice, filterProductsByDetails } from '@vmotta8/price-comparison'
+import { sortProductsByPrice, filterProductsByDetails } from '@seasy/package'
 
 interface Payload {
   product: string;

@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
 import { SearchUsecase } from '../../usecases'
-import { errorHandler } from '@vmotta8/price-comparison'
+import { errorHandler } from '@seasy/package'
 
 export async function handler (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   try {
@@ -12,7 +12,7 @@ export async function handler (event: APIGatewayProxyEvent, context: Context): P
       statusCode: 200,
       body: JSON.stringify(result)
     }
-  } catch (e) {
+  } catch (e: any) {
     const error = errorHandler.format(e)
     console.log(error)
     return error
