@@ -12,7 +12,7 @@ provider:
     shouldStartNameWithService: true
   stage: ${env:NODE_ENV}
   environment:
-    MELI_URL: ${env:MELI_URL}
+    SHOPEE_URL: ${env:SHOPEE_URL}
   
 functions:
   hello:
