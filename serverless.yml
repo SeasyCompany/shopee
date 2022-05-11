@@ -1,5 +1,7 @@
 service: shopee
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs14.x
@@ -8,11 +10,9 @@ provider:
   region: us-east-1
   apiGateway:
     shouldStartNameWithService: true
-  stage: local
+  stage: ${env:NODE_ENV}
   environment:
-    COGNITO_AUTHORIZATION: ${self:custom.Cognito.authorization}
-    COGNITO_URL: ${self:custom.Cognito.url}
-    SHOPEE_URL: ${self:custom.Shopee.url}
+    MELI_URL: ${env:MELI_URL}
   
 functions:
   hello:
@@ -22,9 +22,9 @@ functions:
           method: GET
           path: /hello
           authorizer:
-            arn: ${self:custom.Cognito.arn}
+            arn: ${env:COGNITO_ARN}
             scopes:
-              - ${self:custom.Cognito.scopes}
+              - ${env:COGNITO_SCOPES}
 
   searchproducts:
     handler: dist/src/handlers/index.searchproducts
@@ -37,9 +37,9 @@ functions:
               querystrings:
                 product: true
           authorizer:
-            arn: ${self:custom.Cognito.arn}
+            arn: ${env:COGNITO_ARN}
             scopes:
-              - ${self:custom.Cognito.scopes}
+              - ${env:COGNITO_SCOPES}
 
 custom:
   serverless-offline:
@@ -48,13 +48,6 @@ custom:
     lambdaPort: 4102
   bundle:
     linting: false
-  Cognito:
-    arn: ${file(env.${self:provider.stage}.yml):Cognito.arn}
-    scopes: ${file(env.${self:provider.stage}.yml):Cognito.scopes}
-    url: ${file(env.${self:provider.stage}.yml):Cognito.url}
-    authorization: ${file(env.${self:provider.stage}.yml):Cognito.authorization}
-  Shopee:
-    url: ${file(env.${self:provider.stage}.yml):Shopee.url}
 
 plugins:
   - serverless-offline
